@@ -162,8 +162,6 @@ chmod +x install.sh
 ./install.sh
 ```
 
-Open new terminal to use docker without root permission,or use in terminal 1 with root permission.
-
 **Add Jenkins User to Docker Group**:
 
 ```bash
