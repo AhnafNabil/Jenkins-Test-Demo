@@ -4,6 +4,8 @@
 
 In this guide, we will walk through the process of setting up a CI/CD pipeline using Jenkins to build Docker images from a Node.js application and push them to Docker Hub. The pipeline will be set up on an AWS EC2 instance running Ubuntu, ensuring an automated, streamlined approach to deploying applications. By the end of this tutorial, you will have a fully functioning Jenkins server capable of building Docker images and pushing them to your Docker Hub repository upon each commit to your GitHub repository.
 
+![alt text](./images/Jenkins-img.png)
+
 ## Prerequisites
 
 - AWS account
@@ -298,14 +300,14 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_HUB_REPO = 'ahnafnabil/jenkins-demo-nabil'
+        DOCKER_HUB_REPO = 'your-dockerhub-username/your-repo'
         DOCKER_HUB_CREDENTIALS_ID = 'docker-hub-credentials'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/AhnafNabil/Jenkins-Test-Demo.git']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/your-username/your-repo.git']])
             }
         }
 
@@ -357,6 +359,8 @@ pipeline {
 }
 ```
 
+Replace the github repo and dockerhub credentials with your credentials.
+
 ## Step 8: Verify Jenkins Pipeline Execution
 
 1. **Save the Job Configuration**:
@@ -370,6 +374,12 @@ pipeline {
    - Click on the build number and then `Console Output`.
    - Ensure each stage completes successfully without errors.
 
+   ![alt text](./images/jenkins-01.png)
+
+   ![alt text](./images/jenkins-02.png)
+
+   ![alt text](./images/jenkins-03.png)
+
 ## Step 9: Verification of Docker Image on Docker Hub
 
 1. **Log In to Docker Hub**:
@@ -379,5 +389,35 @@ pipeline {
 2. **Navigate to Your Repository**:
    - In your Docker Hub dashboard, go to the repository specified in your Jenkins pipeline (`your-dockerhub-username/your-repo`).
    - Verify that the new image with the correct tag(s) (`latest` and `BUILD_NUMBER`) is present.
+
+   ![alt text](./images/jenkins-04.png)
+
+## Step 10: Configure GitHub Webhook that Notifies Jenkins of New Commits
+
+1. **Add a Webhook**:
+   - Go to your GitHub repository where your Node.js application is hosted.
+   - Click on the Settings tab of your repository.
+   - In the left sidebar, click on `Webhooks`.
+   - Click the `Add webhook` button.
+   - In the Payload URL field, enter your Jenkins server's URL followed by /github-webhook/. For example:
+
+   ```bash
+   http://your-ec2-public-dns:8080/github-webhook/
+   ```
+   - In the Content type field, select `application/json`
+   - Choose `Just the push event` to trigger the webhook on pushes to the repository.
+   - Click the `Add webhook` button to save the webhook configuration.
+
+2. **Configure Jenkins Job to Use GitHub Webhook**:
+   - Go to your Jenkins server and click on the `Configure` link of your Jenkins job.
+   - In the `Build Triggers` section, select `GitHub hook trigger for GITScm polling`
+   - Click `Save` to save the configuration.
+
+3. **Verify Setup**:
+   - Make a change to your repository and push the commit to GitHub.
+   - Wait for a few minutes and check the Jenkins job's build history to see if the build
+   was triggered by the webhook.
+
+   ![alt text](./images/jenkins-07.png)
 
 By following these steps, you will successfully set up Jenkins on an AWS EC2 instance, build a Docker image for a Node.js application, and push it to Docker Hub automatically.
