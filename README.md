@@ -15,7 +15,7 @@ In this guide, we will walk through the process of setting up a CI/CD pipeline u
 
 ## Step 1: Set Up AWS EC2 Instance
 
-![alt text](./images/pulumi-diagram.png)
+![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/pulumi-diagram.png)
 
 1. Configure AWS CLI with your credentials:
 
@@ -57,7 +57,7 @@ In this guide, we will walk through the process of setting up a CI/CD pipeline u
    cd ~/.ssh
    ```
 
-   ![alt text](./images/jenkins-new-01.png)
+   ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-01.png)
 
 
 ## Project Structure
@@ -178,13 +178,13 @@ pulumi.export("ssh_command", pulumi.Output.concat("ssh -i ~/.ssh/id_rsa_pulumi u
 
 4. Wait for the deployment to complete. Pulumi will output the public IP of the EC2 instance and an SSH command.
 
-![alt text](./images/jenkins-new-02.png)
+![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-02.png)
 
 ## Check Inbound Rules of EC2 Instance
 
 Check rules to allow SSH (port 22) and Jenkins (port 8080) access:
 
-![alt text](./images/jenkins-new-03.png)
+![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-03.png)
 
 ## Accessing the EC2 Instance
 
@@ -342,23 +342,23 @@ sudo systemctl restart jenkins
 
 - Open your browser and navigate to `http://your-ec2-public-dns:8080`.
 
-![alt text](./images/jenkins-new-04.png)
+![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-04.png)
 
 - Enter the initial admin password.
 - Follow the setup wizard to complete the installation (install suggested plugins, create an admin user, etc.).
 
-![alt text](./images/jenkins-new-05.png)
+![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-05.png)
 
-![alt text](./images/jenkins-new-06.png)
+![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-06.png)
 
-![alt text](./images/jenkins-new-07.png)
+![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-07.png)
 
 - **Install Docker Pipeline Plugin (if not installed)**:
 
   If you do not find the Docker Pipeline plugin in the list, switch to the `Available` tab.
   Search for `Docker Pipeline`. Check the box next to `Docker Pipeline` and click `Install without restart` or `Install and restart` if you prefer.
 
-  ![alt text](./images/jenkins-new-08.png)
+  ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-08.png)
 
 ## Step 5: Create Node.js Application
 
@@ -457,20 +457,20 @@ sudo systemctl restart jenkins
 
    - Go to `Manage Jenkins` -> `Credentials` -> `(global)` -> `Add Credentials`.
 
-      ![alt text](./images/jenkins-new-09.png)
+      ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-09.png)
 
    - Select `Kind` as `Username with password`.
    - Enter your Docker Hub username and password.
    - Optionally, provide an ID for these credentials (e.g., `docker-hub-credentials`).
 
-      ![alt text](./images/jenkins-new-10.png)
+      ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-10.png)
 
 3. **Create a New Pipeline Job**:
 
    - Click on `New Item`.
    - Enter a name for your job, select `Pipeline`, and click `OK`.
 
-      ![alt text](./images/jenkins-new-11.png)
+      ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-11.png)
 
 4. **Define the Pipeline Script**:
    - Go to the job configuration page by clicking on the job name and then `Configure`.
@@ -481,7 +481,7 @@ sudo systemctl restart jenkins
 
       For Example, for `checkout` github repository
 
-      ![alt text](./images/jenkins-new-12.png)
+      ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-12.png)
 
    - You don't need to add github credentails if you are using a public git repository.
    - Enter the following Groovy script with the syntax you generated:
@@ -606,7 +606,7 @@ Replace the github repo and dockerhub credentials with your credentials.
    - Choose `Just the push event` to trigger the webhook on pushes to the repository.
    - Click the `Add webhook` button to save the webhook configuration.
 
-   ![alt text](./images/jenkins-new-13.png)
+   ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-13.png)
 
 2. **Configure Jenkins Job to Use GitHub Webhook**:
 
@@ -614,7 +614,7 @@ Replace the github repo and dockerhub credentials with your credentials.
    - In the `Build Triggers` section, select `GitHub hook trigger for GITScm polling`
    - Click `Save` to save the configuration.
 
-   ![alt text](./images/jenkins-new-14.png)
+   ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-14.png)
 
 3. **Verify Setup**:
 
@@ -623,5 +623,7 @@ Replace the github repo and dockerhub credentials with your credentials.
      was triggered by the webhook.
 
    ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-07.png)
+
+   ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-15.png)
 
 By following these steps, you will successfully set up Jenkins on an AWS EC2 instance, build a Docker image for a Node.js application, and push it to Docker Hub automatically.
