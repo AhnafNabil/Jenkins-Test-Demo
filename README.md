@@ -624,6 +624,6 @@ Replace the github repo and dockerhub credentials with your credentials.
 
    ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-07.png)
 
-   ![alt text](./images/jenkins-new-15.png)
+   ![alt text](https://raw.githubusercontent.com/AhnafNabil/Jenkins-Test-Demo/main/images/jenkins-new-15.png)
 
 By following these steps, you will successfully set up Jenkins on an AWS EC2 instance, build a Docker image for a Node.js application, and push it to Docker Hub automatically.
