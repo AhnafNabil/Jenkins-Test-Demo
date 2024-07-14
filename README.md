@@ -606,11 +606,15 @@ Replace the github repo and dockerhub credentials with your credentials.
    - Choose `Just the push event` to trigger the webhook on pushes to the repository.
    - Click the `Add webhook` button to save the webhook configuration.
 
+   ![alt text](./images/jenkins-new-13.png)
+
 2. **Configure Jenkins Job to Use GitHub Webhook**:
 
    - Go to your Jenkins server and click on the `Configure` link of your Jenkins job.
    - In the `Build Triggers` section, select `GitHub hook trigger for GITScm polling`
    - Click `Save` to save the configuration.
+
+   ![alt text](./images/jenkins-new-14.png)
 
 3. **Verify Setup**:
 
